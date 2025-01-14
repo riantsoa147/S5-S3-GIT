@@ -1,0 +1,24 @@
+apres avoir genere le projet spring avec les dependences web et postgres ,
+
+ajouter dans la dependence :
+        <dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>javax.servlet.jsp.jstl</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+
+
+changer l'import des classes MyConnect.java et Util.java
+
+changer l'import de templates/header.jsp
+
+mettre une direction pour le chemin "/" (si vous voulez)
+ 
+dans application.properties , rajouter :
+    # Indiquer à Spring où trouver les fichiers JSP
+    spring.mvc.view.prefix=/WEB-INF/views/
+    spring.mvc.view.suffix=.jsp

@@ -1,0 +1,28 @@
+.container{
+    margin: 0% !important;
+    padding: 0% 5vw;
+    width: 100vw;
+}
+
+body{
+    overflow-x: hidden !important;
+}
+
+body, .container, table, input, select, option, .pagination a, .dropdown li, .dropdown li a, .dropdown-menu, .btn {
+    background-color: #212529 !important;
+    color: white !important;
+}
+
+.btn-default{
+    background-color: #2d64b7 !important;
+    border-color: #2d64b7;
+    width: 100%;
+}
+
+.navbar-default, .navbar-default a {
+    background-color: #2d64b7 !important;
+    color: white !important;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
