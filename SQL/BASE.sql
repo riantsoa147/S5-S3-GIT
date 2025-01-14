@@ -100,6 +100,16 @@ CREATE TABLE components_stock (
    FOREIGN KEY (component_id) REFERENCES components (id)
 );
 
+CREATE TABLE components_recommandations(
+   id SERIAL,
+   date_recommandation DATE NOT NULL,
+   component_id INTEGER NOT NULL,
+   PRIMARY KEY(id),
+   FOREIGN KEY(component_id) REFERENCES components(id)
+);
+
+
+
 CREATE TABLE machines_clients_deposits (
    id SERIAL PRIMARY KEY,
    deposit_date DATE NOT NULL,
