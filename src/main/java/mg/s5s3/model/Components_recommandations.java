@@ -102,7 +102,7 @@ public class Components_recommandations {
         List<Components_recommandations> items = new ArrayList<>();
 
         try {
-            String query = "SELECT * FROM components_recommandations order by id asc ";
+            String query = "SELECT NULL as id, NULL as date_recommandation, component_id, COUNT(id) AS recommandations FROM components_recommandations WHERE DATE_PART('year', date_recommandation) = 2025 GROUP BY component_id ORDER BY recommandations DESC";
             st = con.prepareStatement(query);
             rs = st.executeQuery();
 
@@ -111,6 +111,8 @@ public class Components_recommandations {
                 item.setId(rs.getInt("id"));
                 item.setDate_recommandation(rs.getDate("date_recommandation"));
                 item.setComponent(Components.getById(rs.getInt("component_id")  ,con ));
+                item.setRecommandations(rs.getInt("recommandations"));
+
                 items.add(item);
             }
         } catch (Exception e) {

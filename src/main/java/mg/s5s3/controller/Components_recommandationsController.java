@@ -56,7 +56,7 @@ public class Components_recommandationsController {
             int[] years = {2023,2024,2025};
             model.addAttribute("years", years);
             con = Database.getConnection();
-            if (month == 0 && component_type_id == 0) {
+            if (month == 0 && component_type_id == 0 && year==0) {
                 model.addAttribute("all", Components_recommandations.getAll());
             }
             else{
