@@ -11,7 +11,7 @@
         int[] years = (int[]) request.getAttribute("years");
         String year = (String) request.getAttribute("year");
         int month = Integer.parseInt((String) request.getAttribute("month"));
-        String component_type_id = (String) request.getAttribute("component_type_id");
+        int component_type_id = Integer.parseInt((String) request.getAttribute("component_type_id"));
     %>
     <div class="row">
         <div class="col-md-7 tableContainer ">
@@ -65,7 +65,7 @@
                     <td><%= all[i].getComponent() != null ? all[i].getComponent().getName() : "" %> </td>
                     <td><%= all[i].getComponent() != null ? all[i].getComponent().getComponent_type().getName() : "" %> </td>
                     <td><%= month - 1 >= 0 ? months[month-1] : "" %></td>
-                    <td></td>
+                    <td><%= month > 0 || component_type_id > 0 ? year : "" %></td>
                     <td><%= all[i].getRecommandations()!= 0 ? all[i].getRecommandations() : ""  %></td>
                     <td>
                         <a href="/TraitComponents_recommandations/<%= all[i].getId() %>" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
