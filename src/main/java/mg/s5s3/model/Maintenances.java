@@ -286,7 +286,7 @@ public class Maintenances {
         }
     }
 
-    public static Maintenances[] getAllByCriteria(int machines_type_id, int service_id, int components_type_id) throws Exception {
+    public static Maintenances[] getAllByCriteria(int machines_type_id, int service_id, int components_type_id, String end_date) throws Exception {
         Connection con = Database.getConnection();
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -305,7 +305,10 @@ public class Maintenances {
                 query+= ")";
             }
             else if (components_type_id!=0){
-                query+="and id in (select maintenance_id from maintenances_details where component_type_id = ? )";
+                query+="and id in (select maintenance_id from maintenances_details where component_type_id = ? ) ";
+            }
+            if (!end_date.equals("-")) {
+                query+="and TO_CHAR(end_date, 'YYYY-MM-DD') = ? ";
             }
             query+="order by id asc";
             st = con.prepareStatement(query);
@@ -320,6 +323,10 @@ public class Maintenances {
             }
             if(components_type_id !=0 ){
                 st.setInt(i, components_type_id);
+                i++;
+            }
+            if(!end_date.equals("-")){
+                st.setString(i, end_date);
             }
             rs = st.executeQuery();
             while (rs.next()) {

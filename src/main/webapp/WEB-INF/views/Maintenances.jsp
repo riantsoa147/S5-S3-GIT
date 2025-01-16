@@ -6,6 +6,7 @@
         String machines_type_id = (String) request.getAttribute("machines_type_id");
         String service_id = (String) request.getAttribute("service_id");
         String components_type_id = (String) request.getAttribute("components_type_id");
+        String end_date = (String) request.getAttribute("end_date");
         Maintenances[] all = (Maintenances[]) request.getAttribute("all");
         Maintenances currentMaintenances = (Maintenances) request.getAttribute("currentMaintenances");
         Technicians[] allTechnician = (Technicians[]) request.getAttribute("allTechnician");
@@ -66,6 +67,24 @@
         </div>
         <hr class="col-md-12">
         <div class="col-md-12 tableContainer " style="height: 100vh;">
+
+            <form action="/Maintenances/filter" class="col-md-4" method="post">
+                
+                <input type="hidden" name="machines_type_id" value="<%= machines_type_id %>">
+                <input type="hidden" name="service_id" value="<%= service_id %>">
+                <input type="hidden" name="components_type_id" value="<%= components_type_id %>">
+
+                <div class="form-group">
+                    <label for="end_date">End date (Returning date)</label>
+                    <input type="date" name="end_date" id="end_date" class="form-control">
+                </div>
+                <div  class="form-group">
+
+                    <button type="submit" class="btn btn-default">Valider</button>
+                </div>
+
+            </form>
+
             <table class="table" id="table">
                 <tr>
                     <th>Id</th>
@@ -78,10 +97,10 @@
                     <th class="dropdown">
                         <p class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Machines types <span class="caret"></span></p>
                         <ul class="dropdown-menu">
-                            <li><a href="/Maintenances/filter/0/<%= service_id %>/<%= components_type_id %>">All</a></li>
+                            <li><a href="/Maintenances/filter/0/<%= service_id %>/<%= components_type_id %>/<%= end_date %>">All</a></li>
                                 <li role="separator" class="divider"></li>
                             <% for (int j = 0; j < allMachine_type.length; j++) { %>
-                                <li><a href="/Maintenances/filter/<%= allMachine_type[j].getId() %>/<%= service_id %>/<%= components_type_id %>"><%= allMachine_type[j].getName() %></a></li>
+                                <li><a href="/Maintenances/filter/<%= allMachine_type[j].getId() %>/<%= service_id %>/<%= components_type_id %>/<%= end_date %>"><%= allMachine_type[j].getName() %></a></li>
                                 <li role="separator" class="divider"></li>
                             <% } %>
                         </ul>
@@ -89,10 +108,10 @@
                     <th class="dropdown">
                         <p class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Services <span class="caret"></span></p>
                         <ul class="dropdown-menu">
-                            <li><a href="/Maintenances/filter/<%= machines_type_id %>/0/<%= components_type_id %>">All</a></li>
+                            <li><a href="/Maintenances/filter/<%= machines_type_id %>/0/<%= components_type_id %>/<%= end_date %>">All</a></li>
                                 <li role="separator" class="divider"></li>
                             <% for (int j = 0; j < allService.length; j++) { %>
-                                <li><a href="/Maintenances/filter/<%= machines_type_id %>/<%= allService[j].getId() %>/<%= components_type_id %>"><%= allService[j].getName() %></a></li>
+                                <li><a href="/Maintenances/filter/<%= machines_type_id %>/<%= allService[j].getId() %>/<%= components_type_id %>/<%= end_date %>"><%= allService[j].getName() %></a></li>
                                 <li role="separator" class="divider"></li>
                             <% } %>
                         </ul>
@@ -100,10 +119,10 @@
                     <th class="dropdown">
                         <p class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Components types <span class="caret"></span></p>
                         <ul class="dropdown-menu">
-                            <li><a href="/Maintenances/filter/<%= machines_type_id %>/<%= service_id %>/0">All</a></li>
+                            <li><a href="/Maintenances/filter/<%= machines_type_id %>/<%= service_id %>/0/<%= end_date %>">All</a></li>
                                 <li role="separator" class="divider"></li>
                             <% for (int j = 0; j < allComponent_type.length; j++) { %>
-                                <li><a href="/Maintenances/filter/<%= machines_type_id %>/<%= service_id %>/<%= allComponent_type[j].getId() %>"><%= allComponent_type[j].getName() %></a></li>
+                                <li><a href="/Maintenances/filter/<%= machines_type_id %>/<%= service_id %>/<%= allComponent_type[j].getId() %>/<%= end_date %>"><%= allComponent_type[j].getName() %></a></li>
                                 <li role="separator" class="divider"></li>
                             <% } %>
                         </ul>

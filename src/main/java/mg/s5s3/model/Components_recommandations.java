@@ -102,7 +102,7 @@ public class Components_recommandations {
         List<Components_recommandations> items = new ArrayList<>();
 
         try {
-            String query = "SELECT NULL as id, NULL as date_recommandation, component_id, COUNT(id) AS recommandations FROM components_recommandations WHERE DATE_PART('year', date_recommandation) = 2025 GROUP BY component_id ORDER BY recommandations DESC";
+            String query = "SELECT * FROM components_recommandations order by id asc ";
             st = con.prepareStatement(query);
             rs = st.executeQuery();
 
@@ -111,8 +111,6 @@ public class Components_recommandations {
                 item.setId(rs.getInt("id"));
                 item.setDate_recommandation(rs.getDate("date_recommandation"));
                 item.setComponent(Components.getById(rs.getInt("component_id")  ,con ));
-                item.setRecommandations(rs.getInt("recommandations"));
-
                 items.add(item);
             }
         } catch (Exception e) {
@@ -200,7 +198,7 @@ public class Components_recommandations {
         List<Components_recommandations> items = new ArrayList<>();
 
         try {
-            String query = "SELECT NULL as id, NULL as date_recommandation, component_id, COUNT(id) AS recommandations FROM components_recommandations WHERE 1=1 ";
+            String query = "SELECT DATE_PART('month', date_recommandation) as months, NULL as id, TO_CHAR(date_recommandation, 'YYYY-MM') || '-01'  as date_recommandation, component_id, COUNT(id) AS recommandations FROM components_recommandations WHERE 1=1 ";
             if(year !=0)
             {
                 query += "AND DATE_PART('year', date_recommandation) = ? ";
@@ -213,7 +211,7 @@ public class Components_recommandations {
             {
                 query += "AND component_id IN ( SELECT id FROM components WHERE component_type_id = ? ) ";
             }
-            query+="GROUP BY component_id ORDER BY recommandations DESC";
+            query+="GROUP BY component_id, months, date_recommandation ORDER BY recommandations DESC";
                                 
             st = con.prepareStatement(query);
             int i = 1; 
