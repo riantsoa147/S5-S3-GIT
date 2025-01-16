@@ -49,7 +49,7 @@
                     <select name="deposit" id="deposit" class="form-control">
                         <option value="">-- choose --</option>
                         <% for (int j = 0; j < allDeposit.length; j++) { %>
-                        <option value="<%= allDeposit[j].getId() %>" <%= currentMaintenances != null && currentMaintenances.getDeposit() != null && currentMaintenances.getDeposit().getId() == allDeposit[j].getId() ? "selected" : "" %>><%= allDeposit[j].getDeposit_date() %>
+                        <option value="<%= allDeposit[j].getId() %>" <%= currentMaintenances != null && currentMaintenances.getDeposit() != null && currentMaintenances.getDeposit().getId() == allDeposit[j].getId() ? "selected" : "" %>><%= allDeposit[j].getClient().getName() %>
                         <% } %>
                     </select>
                 </div>
@@ -88,10 +88,10 @@
             <table class="table" id="table">
                 <tr>
                     <th>Id</th>
-                    <th>Price</th>
-                    <th>Start date</th>
+                    <!-- <th>Price</th> -->
+                    <!-- <th>Start date</th> -->
                     <th>End date</th>
-                    <th>Technicians</th>
+                    <!-- <th>Technicians</th> -->
                     <th>Clients</th>
                     <th>Models</th>
                     <th class="dropdown">
@@ -117,7 +117,7 @@
                         </ul>
                     </th>
                     <th class="dropdown">
-                        <p class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Components types <span class="caret"></span></p>
+                        <p class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Components <span class="caret"></span></p>
                         <ul class="dropdown-menu">
                             <li><a href="/Maintenances/filter/<%= machines_type_id %>/<%= service_id %>/0/<%= end_date %>">All</a></li>
                                 <li role="separator" class="divider"></li>
@@ -133,10 +133,10 @@
                 <% for (int i = 0; i < all.length; i++) { %>
                 <tr>
                     <td><%= all[i].getId() %></td>
-                    <td><%= all[i].getPrice() %></td>
-                    <td><%= all[i].getStart_date() %></td>
+                    <!-- <td><%= all[i].getPrice() %></td> -->
+                    <!-- <td><%= all[i].getStart_date() %></td> -->
                     <td><%= all[i].getEnd_date() %></td>
-                    <td><%= all[i].getTechnician() != null ? all[i].getTechnician().getName() : "" %> </td>
+                    <!-- <td><%= all[i].getTechnician() != null ? all[i].getTechnician().getName() : "" %> </td> -->
                     <td><%= all[i].getDeposit() != null ? all[i].getDeposit().getClient().getName() : "" %> </td>
                     <td><%= all[i].getDeposit() != null ? all[i].getDeposit().getModels().getName() : "" %> </td>
                     <td><%= all[i].getDeposit() != null ? all[i].getDeposit().getModels().getMachine_type().getName() : "" %> </td>
@@ -144,7 +144,7 @@
                         <p><%= all[i].getDetails()[j].getService().getName() %></p>
                     <% } %></td>
                     <td><% for (int j = 0; j < all[i].getDetails().length ; j ++) { %>
-                        <p><%= all[i].getDetails()[j].getComponent_type().getName() %></p>
+                        <p><%= all[i].getDetails()[j].getComponent() != null ? all[i].getDetails()[j].getComponent().getName() +" (" + all[i].getDetails()[j].getComponent_type().getName() + ")" : all[i].getDetails()[j].getComponent_type().getName() %></p>
                     <% } %></td>
                     <td><%= all[i].getStatus() != null ? all[i].getStatus().getName() : "" %> </td>
                     <td>
