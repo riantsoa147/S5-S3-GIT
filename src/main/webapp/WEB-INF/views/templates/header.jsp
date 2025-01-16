@@ -55,6 +55,8 @@
                         <li role="separator" class="divider"></li>
                         <li><a href="Components_type">Components types</a></li>
                         <li role="separator" class="divider"></li>
+                        <li><a href="Components_recommandations">Components recommandations</a></li>
+                        <li role="separator" class="divider"></li>
                         <li><a href="Components_stock">Components stocks</a></li>
                     </ul>
                 </li>
