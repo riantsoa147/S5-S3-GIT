@@ -202,6 +202,11 @@ public class MaintenancesController {
             con = Database.getConnection();
             Maintenances currentMaintenances = Maintenances.getById(id ,con);
             model.addAttribute("currentMaintenances", currentMaintenances);
+
+            model.addAttribute("service_id", "0");
+            model.addAttribute("components_type_id", "0");
+            model.addAttribute("machines_type_id", "0");
+            model.addAttribute("end_date", "-");
             model.addAttribute("all", Maintenances.getAll());
             Technicians[] allTechnician = Technicians.getAll();
             model.addAttribute("allTechnician", allTechnician);
@@ -209,6 +214,13 @@ public class MaintenancesController {
             model.addAttribute("allDeposit", allDeposit);
             Status[] allStatus = Status.getAll();
             model.addAttribute("allStatus", allStatus);
+            Components_type[] allComponent_type = Components_type.getAll();
+            model.addAttribute("allComponent_type", allComponent_type);
+            Services[] allService = Services.getAll();
+            model.addAttribute("allService", allService);
+            Machines_type[] allMachine_type = Machines_type.getAll();
+            model.addAttribute("allMachine_type", allMachine_type);
+            
             return "Maintenances";
         } catch (Exception e) {
             e.printStackTrace();

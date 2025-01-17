@@ -17,13 +17,13 @@
         Services[] allService = (Services[]) request.getAttribute("allService");
     %>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4" class="height : 100vh">
             <form action="/Maintenances" method="post">
                 <input type="hidden" name="id" value="<%= currentMaintenances != null ? currentMaintenances.getId() : 0 %>">
                 <% if (currentMaintenances != null) { %>
                     <input type="hidden" name="mode" value="u">
                 <% } %>
-                <div class="form-group">
+                <div class="form-group" >
                     <label for="price">Price</label>
                     <input type="number" name="price" id="price" class="form-control" value="<%= currentMaintenances != null ? currentMaintenances.getPrice() : 0 %>">
                 </div>
