@@ -7,17 +7,19 @@
         String service_id = (String) request.getAttribute("service_id");
         String components_type_id = (String) request.getAttribute("components_type_id");
         String end_date = (String) request.getAttribute("end_date");
+
         Maintenances[] all = (Maintenances[]) request.getAttribute("all");
         Maintenances currentMaintenances = (Maintenances) request.getAttribute("currentMaintenances");
         Technicians[] allTechnician = (Technicians[]) request.getAttribute("allTechnician");
-        Machines_clients_deposits[] allDeposit = (Machines_clients_deposits[]) request.getAttribute("allDeposit");
+        Diagnostics[] allDiagnostic = (Diagnostics[]) request.getAttribute("allDiagnostic");
         Status[] allStatus = (Status[]) request.getAttribute("allStatus");
+
         Components_type[] allComponent_type = (Components_type[]) request.getAttribute("allComponent_type");
         Machines_type[] allMachine_type = (Machines_type[]) request.getAttribute("allMachine_type");
         Services[] allService = (Services[]) request.getAttribute("allService");
     %>
     <div class="row">
-        <div class="col-md-4" class="height : 100vh">
+        <div class="col-md-4" style="height : 100vh">
             <form action="/Maintenances" method="post">
                 <input type="hidden" name="id" value="<%= currentMaintenances != null ? currentMaintenances.getId() : 0 %>">
                 <% if (currentMaintenances != null) { %>
@@ -45,11 +47,11 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="deposit">Machines clients deposits</label>
-                    <select name="deposit" id="deposit" class="form-control">
+                    <label for="diagnostic">Diagnostics</label>
+                    <select name="diagnostic" id="diagnostic" class="form-control">
                         <option value="">-- choose --</option>
-                        <% for (int j = 0; j < allDeposit.length; j++) { %>
-                        <option value="<%= allDeposit[j].getId() %>" <%= currentMaintenances != null && currentMaintenances.getDeposit() != null && currentMaintenances.getDeposit().getId() == allDeposit[j].getId() ? "selected" : "" %>><%= allDeposit[j].getClient().getName() %>
+                        <% for (int j = 0; j < allDiagnostic.length; j++) { %>
+                        <option value="<%= allDiagnostic[j].getId() %>" <%= currentMaintenances != null && currentMaintenances.getDiagnostic() != null && currentMaintenances.getDiagnostic().getId() == allDiagnostic[j].getId() ? "selected" : "" %>><%= allDiagnostic[j].getDeposit().getClient().getName() %>
                         <% } %>
                     </select>
                 </div>
@@ -137,9 +139,9 @@
                     <!-- <td><%= all[i].getStart_date() %></td> -->
                     <td><%= all[i].getEnd_date() %></td>
                     <!-- <td><%= all[i].getTechnician() != null ? all[i].getTechnician().getName() : "" %> </td> -->
-                    <td><%= all[i].getDeposit() != null ? all[i].getDeposit().getClient().getName() : "" %> </td>
-                    <td><%= all[i].getDeposit() != null ? all[i].getDeposit().getModels().getName() : "" %> </td>
-                    <td><%= all[i].getDeposit() != null ? all[i].getDeposit().getModels().getMachine_type().getName() : "" %> </td>
+                    <td><%= all[i].getDiagnostic().getDeposit() != null ? all[i].getDiagnostic().getDeposit().getClient().getName() : "" %> </td>
+                    <td><%= all[i].getDiagnostic().getDeposit() != null ? all[i].getDiagnostic().getDeposit().getModels().getName() : "" %> </td>
+                    <td><%= all[i].getDiagnostic().getDeposit() != null ? all[i].getDiagnostic().getDeposit().getModels().getMachine_type().getName() : "" %> </td>
                     <td><% for (int j = 0; j < all[i].getDetails().length ; j ++) { %>
                         <p><%= all[i].getDetails()[j].getService().getName() %></p>
                     <% } %></td>

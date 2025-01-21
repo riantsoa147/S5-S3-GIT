@@ -34,7 +34,7 @@
                     <td><%= all[i].getComponent_type() != null ? all[i].getComponent_type().getName() : "" %> </td>
                     <td><%= all[i].getService() != null ? all[i].getService().getName() : "" %> </td>
                     <td><%= all[i].getComponent() != null ? all[i].getComponent().getName() : "" %> </td>
-                    <td><%= all[i].getMaintenance() != null ? all[i].getMaintenance().getDeposit().getClient().getName() : "" %> </td>
+                    <td><%= all[i].getMaintenance() != null ? all[i].getMaintenance().getDiagnostic().getDeposit().getClient().getName() : "" %> </td>
                     <td>
                         <a href="/TraitMaintenances_details/<%= all[i].getId() %>" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                         <a href="/Maintenances_details/delete/<%= all[i].getId() %>" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
@@ -97,7 +97,7 @@
                     <select name="maintenance" id="maintenance" class="form-control">
                         <option value="">-- choose --</option>
                         <% for (int j = 0; j < allMaintenance.length; j++) { %>
-                        <option value="<%= allMaintenance[j].getId() %>" <%= currentMaintenances_details != null && currentMaintenances_details.getMaintenance() != null && currentMaintenances_details.getMaintenance().getId() == allMaintenance[j].getId() ? "selected" : "" %>><%= allMaintenance[j].getDeposit().getClient().getName() %>
+                        <option value="<%= allMaintenance[j].getId() %>" <%= currentMaintenances_details != null && currentMaintenances_details.getMaintenance() != null && currentMaintenances_details.getMaintenance().getId() == allMaintenance[j].getId() ? "selected" : "" %>><%= allMaintenance[j].getDiagnostic().getDeposit().getClient().getName() %>
                         <% } %>
                     </select>
                 </div>

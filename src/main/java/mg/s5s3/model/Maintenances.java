@@ -9,19 +9,18 @@ public class Maintenances {
     private java.sql.Timestamp start_date;
     private java.sql.Timestamp end_date;
     private Technicians technician;
-    private Machines_clients_deposits deposit;
+    private Diagnostics diagnostic;
     private Status status;
     private Maintenances_details[] details;
-    
+
     public Maintenances(){}
-    public Maintenances(String price,String start_date,String end_date,String technician,String deposit,String status,Connection con) throws Exception{
+    public Maintenances(String price,String start_date,String end_date,String technician,String diagnostic,String status,Connection con) throws Exception{
         setPrice(price); 
         setStart_date(start_date); 
         setEnd_date(end_date); 
         setTechnician(technician,con); 
-        setDeposit(deposit,con); 
+        setDiagnostic(diagnostic,con); 
         setStatus(status,con); 
-        setDetails(con);
     }
     public int getId() {
         return id;
@@ -98,19 +97,19 @@ public class Maintenances {
         setTechnician(toSet) ;
     }
 
-    public Machines_clients_deposits getDeposit() {
-        return deposit;
+    public Diagnostics getDiagnostic() {
+        return diagnostic;
     }
 
-    public void setDeposit(Machines_clients_deposits deposit) throws Exception {
-        this.deposit = deposit;
+    public void setDiagnostic(Diagnostics diagnostic) throws Exception {
+        this.diagnostic = diagnostic;
     }
 
-    public void setDeposit(String deposit,Connection con) throws Exception {
-         //define how this type should be conterted from String ... type : Machines_clients_deposits
-        Machines_clients_deposits toSet = Machines_clients_deposits.getById(Integer.parseInt(deposit),con );
+    public void setDiagnostic(String diagnostic,Connection con) throws Exception {
+         //define how this type should be conterted from String ... type : Diagnostics
+        Diagnostics toSet = Diagnostics.getById(Integer.parseInt(diagnostic),con );
 
-        setDeposit(toSet) ;
+        setDiagnostic(toSet) ;
     }
 
     public Status getStatus() {
@@ -131,6 +130,7 @@ public class Maintenances {
     public Maintenances_details[] getDetails() {
         return details;
     }
+
     public void setDetails(Maintenances_details[] details) {
         this.details = details;
     }
@@ -164,7 +164,7 @@ public class Maintenances {
                 instance.setStart_date(rs.getTimestamp("start_date"));
                 instance.setEnd_date(rs.getTimestamp("end_date"));
                 instance.setTechnician(Technicians.getById(rs.getInt("technician_id") ,con ));
-                instance.setDeposit(Machines_clients_deposits.getById(rs.getInt("deposit_id") ,con ));
+                instance.setDiagnostic(Diagnostics.getById(rs.getInt("diagnostic_id") ,con ));
                 instance.setStatus(Status.getById(rs.getInt("status_id") ,con ));
             }
         } catch (Exception e) {
@@ -195,7 +195,7 @@ public class Maintenances {
                 item.setStart_date(rs.getTimestamp("start_date"));
                 item.setEnd_date(rs.getTimestamp("end_date"));
                 item.setTechnician(Technicians.getById(rs.getInt("technician_id")  ,con ));
-                item.setDeposit(Machines_clients_deposits.getById(rs.getInt("deposit_id")  ,con ));
+                item.setDiagnostic(Diagnostics.getById(rs.getInt("diagnostic_id")  ,con ));
                 item.setStatus(Status.getById(rs.getInt("status_id")  ,con ));
                 item.setDetails(con);
                 items.add(item);
@@ -215,13 +215,13 @@ public class Maintenances {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            String query = "INSERT INTO maintenances (price, start_date, end_date, technician_id, deposit_id, status_id) VALUES (?, ?, ?, ?, ?, ?) RETURNING id";
+            String query = "INSERT INTO maintenances (price, start_date, end_date, technician_id, diagnostic_id, status_id) VALUES (?, ?, ?, ?, ?, ?) RETURNING id";
             st = con.prepareStatement(query);
             st.setDouble(1, this.price);
             st.setTimestamp(2, this.start_date);
             st.setTimestamp(3, this.end_date);
             st.setInt(4, this.technician.getId());
-            st.setInt(5, this.deposit.getId());
+            st.setInt(5, this.diagnostic.getId());
             st.setInt(6, this.status.getId());
             try {
                 rs = st.executeQuery();
@@ -246,13 +246,13 @@ public class Maintenances {
     public void update(Connection con) throws Exception {
         PreparedStatement st = null;
         try {
-            String query = "UPDATE maintenances SET price = ?, start_date = ?, end_date = ?, technician_id = ?, deposit_id = ?, status_id = ? WHERE id = ?";
+            String query = "UPDATE maintenances SET price = ?, start_date = ?, end_date = ?, technician_id = ?, diagnostic_id = ?, status_id = ? WHERE id = ?";
             st = con.prepareStatement(query);
             st.setDouble(1, this.price);
             st.setTimestamp(2, this.start_date);
             st.setTimestamp(3, this.end_date);
             st.setInt (4, this.technician.getId());
-            st.setInt (5, this.deposit.getId());
+            st.setInt (5, this.diagnostic.getId());
             st.setInt (6, this.status.getId());
             st.setInt(7, this.getId());
             try {
@@ -295,7 +295,7 @@ public class Maintenances {
         try {
             String query = "SELECT * FROM maintenances where 1=1 ";
             if(machines_type_id !=0){
-                query+= "and deposit_id in (select id from machines_clients_deposits where models_id in (select id from models where machine_type_id = ?) ) ";
+                query+= "and diagnostic_id in (select id from diagnostics where deposit_id in (select id from machines_clients_deposits where models_id in (select id from models where machine_type_id = ?) ) ) ";
             }
             if (service_id!=0){
                 query+="and id in (select maintenance_id from maintenances_details where service_id = ? ";
@@ -329,6 +329,7 @@ public class Maintenances {
                 st.setString(i, end_date);
             }
             rs = st.executeQuery();
+
             while (rs.next()) {
                 Maintenances item = new Maintenances();
                 item.setId(rs.getInt("id"));
@@ -336,9 +337,9 @@ public class Maintenances {
                 item.setStart_date(rs.getTimestamp("start_date"));
                 item.setEnd_date(rs.getTimestamp("end_date"));
                 item.setTechnician(Technicians.getById(rs.getInt("technician_id")  ,con ));
-                item.setDeposit(Machines_clients_deposits.getById(rs.getInt("deposit_id")  ,con ));
+                item.setDiagnostic(Diagnostics.getById(rs.getInt("diagnostic_id")  ,con ));
                 item.setStatus(Status.getById(rs.getInt("status_id")  ,con ));
-                item.setDetails(service_id,components_type_id,con);
+                item.setDetails(service_id, components_type_id, con);;
                 items.add(item);
             }
         } catch (Exception e) {
@@ -351,6 +352,7 @@ public class Maintenances {
 
         return items.toArray(new Maintenances[0]);
     }
+        
     
 }
 

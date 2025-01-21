@@ -26,8 +26,8 @@ public class MaintenancesController {
             model.addAttribute("all", Maintenances.getAll());
             Technicians[] allTechnician = Technicians.getAll();
             model.addAttribute("allTechnician", allTechnician);
-            Machines_clients_deposits[] allDeposit = Machines_clients_deposits.getAll();
-            model.addAttribute("allDeposit", allDeposit);
+            Diagnostics[] allDiagnostic = Diagnostics.getAll();
+            model.addAttribute("allDiagnostic", allDiagnostic);
             Status[] allStatus = Status.getAll();
             model.addAttribute("allStatus", allStatus);
             Components_type[] allComponent_type = Components_type.getAll();
@@ -61,8 +61,8 @@ public class MaintenancesController {
             model.addAttribute("all", Maintenances.getAllByCriteria(machines_type_id,service_id,components_type_id,end_date));
             Technicians[] allTechnician = Technicians.getAll();
             model.addAttribute("allTechnician", allTechnician);
-            Machines_clients_deposits[] allDeposit = Machines_clients_deposits.getAll();
-            model.addAttribute("allDeposit", allDeposit);
+            Diagnostics[] allDiagnostic = Diagnostics.getAll();
+            model.addAttribute("allDiagnostic", allDiagnostic);
             Status[] allStatus = Status.getAll();
             model.addAttribute("allStatus", allStatus);
             Components_type[] allComponent_type = Components_type.getAll();
@@ -97,8 +97,8 @@ public class MaintenancesController {
             model.addAttribute("all", Maintenances.getAllByCriteria(machines_type_id,service_id,components_type_id,end_date));
             Technicians[] allTechnician = Technicians.getAll();
             model.addAttribute("allTechnician", allTechnician);
-            Machines_clients_deposits[] allDeposit = Machines_clients_deposits.getAll();
-            model.addAttribute("allDeposit", allDeposit);
+            Diagnostics[] allDiagnostic = Diagnostics.getAll();
+            model.addAttribute("allDiagnostic", allDiagnostic);
             Status[] allStatus = Status.getAll();
             model.addAttribute("allStatus", allStatus);
             Components_type[] allComponent_type = Components_type.getAll();
@@ -129,8 +129,8 @@ public class MaintenancesController {
             model.addAttribute("all", Maintenances.getAll());
             Technicians[] allTechnician = Technicians.getAll();
             model.addAttribute("allTechnician", allTechnician);
-            Machines_clients_deposits[] allDeposit = Machines_clients_deposits.getAll();
-            model.addAttribute("allDeposit", allDeposit);
+            Diagnostics[] allDiagnostic = Diagnostics.getAll();
+            model.addAttribute("allDiagnostic", allDiagnostic);
             Status[] allStatus = Status.getAll();
             model.addAttribute("allStatus", allStatus);
             Components_type[] allComponent_type = Components_type.getAll();
@@ -149,7 +149,7 @@ public class MaintenancesController {
     }
 
     @PostMapping("/Maintenances")
-    public String saveOrUpdate(Model model, @RequestParam(required = false) String id,  @RequestParam String price, @RequestParam String start_date, @RequestParam String end_date, @RequestParam String technician, @RequestParam String deposit, @RequestParam String status, @RequestParam(required = false) String mode) {
+    public String saveOrUpdate(Model model, @RequestParam(required = false) String id,  @RequestParam String price, @RequestParam String start_date, @RequestParam String end_date, @RequestParam String technician, @RequestParam String diagnostic, @RequestParam String status, @RequestParam(required = false) String mode) {
         Connection con = null;
         try {
             con = Database.getConnection();
@@ -158,7 +158,7 @@ public class MaintenancesController {
             instance.setStart_date(start_date) ; 
             instance.setEnd_date(end_date) ; 
             instance.setTechnician(technician,con ) ;
-            instance.setDeposit(deposit,con ) ;
+            instance.setDiagnostic(diagnostic,con ) ;
             instance.setStatus(status,con ) ;
             if (mode != null && "u".equals(mode)) {
                 instance.setId(id);
@@ -177,6 +177,7 @@ public class MaintenancesController {
             }
         }
     }
+
 
     @GetMapping("/Maintenances/delete/{id}")
     public String delete(Model model, @PathVariable int id) {
@@ -210,8 +211,8 @@ public class MaintenancesController {
             model.addAttribute("all", Maintenances.getAll());
             Technicians[] allTechnician = Technicians.getAll();
             model.addAttribute("allTechnician", allTechnician);
-            Machines_clients_deposits[] allDeposit = Machines_clients_deposits.getAll();
-            model.addAttribute("allDeposit", allDeposit);
+            Diagnostics[] allDiagnostic = Diagnostics.getAll();
+            model.addAttribute("allDiagnostic", allDiagnostic);
             Status[] allStatus = Status.getAll();
             model.addAttribute("allStatus", allStatus);
             Components_type[] allComponent_type = Components_type.getAll();
