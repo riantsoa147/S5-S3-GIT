@@ -64,8 +64,8 @@
                     <td><%= all[i].getDate_recommandation() != null ? all[i].getDate_recommandation() : "" %></td>
                     <td><%= all[i].getComponent() != null ? all[i].getComponent().getName() : "" %> </td>
                     <td><%= all[i].getComponent() != null ? all[i].getComponent().getComponent_type().getName() : "" %> </td>
-                    <td><%= month - 1 >= 0 ? months[month-1] : "" %></td>
-                    <td><%= month > 0 || component_type_id > 0 ? year : "" %></td>
+                    <td><%= all[i].getDate_recommandation() != null ? months[all[i].getDate_recommandation().getMonth()] : "" %></td>
+                    <td><%= all[i].getDate_recommandation() != null ? all[i].getDate_recommandation().getYear() + 1900 : "" %></td>
                     <td><%= all[i].getRecommandations()!= 0 ? all[i].getRecommandations() : ""  %></td>
                     <td>
                         <a href="/TraitComponents_recommandations/<%= all[i].getId() %>" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>

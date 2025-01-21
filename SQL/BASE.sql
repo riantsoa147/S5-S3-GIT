@@ -127,22 +127,21 @@ CREATE TABLE maintenances (
    start_date TIMESTAMP NOT NULL,
    end_date TIMESTAMP,
    technician_id INTEGER NOT NULL,
-   deposit_id INTEGER NOT NULL,
+   diagnostic_id INTEGER NOT NULL,
    status_id INTEGER NOT NULL,
    FOREIGN KEY (technician_id) REFERENCES technicians (id),
-   FOREIGN KEY (deposit_id) REFERENCES machines_clients_deposits (id),
+   FOREIGN KEY (diagnostic_id) REFERENCES diagnostics (id),
    FOREIGN KEY (status_id) REFERENCES status (id)
 );
 
 CREATE TABLE maintenances_details (
    id SERIAL PRIMARY KEY,
-   name VARCHAR(50) NOT NULL,
-   quantity NUMERIC(15,2) NOT NULL,
-   unit_price NUMERIC(15,2) NOT NULL,
+   quantity NUMERIC(15,2),
+   unit_price NUMERIC(15,2),
    sell_price NUMERIC(15,2),
    component_type_id INTEGER NOT NULL,
    service_id INTEGER NOT NULL,
-   component_id INTEGER NOT NULL,
+   component_id INTEGER,
    maintenance_id INTEGER NOT NULL,
    FOREIGN KEY (component_type_id) REFERENCES components_type (id),
    FOREIGN KEY (service_id) REFERENCES services (id),

@@ -18,7 +18,7 @@ public class Components_recommandationsController {
     public String showAll(Model model) {
         Connection con = null;
         try {
-            model.addAttribute("year", Integer.toString(2025));
+            model.addAttribute("year", Integer.toString(0));
             model.addAttribute("month", Integer.toString(0));
             model.addAttribute("component_type_id", Integer.toString(0));
             String[] months = {"Jan","Fev","Mars","Apr","May","June","July","Aug","Sept","Oct","Nov","Dec"};
@@ -56,7 +56,7 @@ public class Components_recommandationsController {
             int[] years = {2023,2024,2025};
             model.addAttribute("years", years);
             con = Database.getConnection();
-            if (month == 0 && component_type_id == 0) {
+            if (month == 0 && component_type_id == 0 && year==0) {
                 model.addAttribute("all", Components_recommandations.getAll());
             }
             else{
@@ -130,9 +130,19 @@ public class Components_recommandationsController {
             con = Database.getConnection();
             Components_recommandations currentComponents_recommandations = Components_recommandations.getById(id ,con);
             model.addAttribute("currentComponents_recommandations", currentComponents_recommandations);
+            model.addAttribute("year", Integer.toString(0));
+            model.addAttribute("month", Integer.toString(0));
+            model.addAttribute("component_type_id", Integer.toString(0));
+            String[] months = {"Jan","Fev","Mars","Apr","May","June","July","Aug","Sept","Oct","Nov","Dec"};
+            model.addAttribute("months", months);
+            int[] years = {2023,2024,2025};
+            model.addAttribute("years", years);
+            con = Database.getConnection();
             model.addAttribute("all", Components_recommandations.getAll());
             Components[] allComponent = Components.getAll();
             model.addAttribute("allComponent", allComponent);
+            Components_type[] allComponent_type = Components_type.getAll();
+            model.addAttribute("allComponent_type", allComponent_type);
             return "Components_recommandations";
         } catch (Exception e) {
             e.printStackTrace();
