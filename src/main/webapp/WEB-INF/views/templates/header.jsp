@@ -80,6 +80,8 @@
                         <li><a href="Services">Services</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="Technicians">Technicians</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="Technician_commissions">Technician commissions</a></li>
                     </ul>
                 </li>
 
