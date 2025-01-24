@@ -12,17 +12,15 @@ import mg.s5s3.db.Database;
 import mg.s5s3.model.*;
 
 @Controller
-public class TechniciansController {
+public class GenderController {
 
-    @GetMapping("/Technicians")
+    @GetMapping("/Gender")
     public String showAll(Model model) {
         Connection con = null;
         try {
             con = Database.getConnection();
-            model.addAttribute("all", Technicians.getAll());
-            Gender[] allGender = Gender.getAll();
-            model.addAttribute("allGender", allGender);
-            return "Technicians";
+            model.addAttribute("all", Gender.getAll());
+            return "Gender";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("eMessage", e.getMessage() + (e.getCause() != null ? "<br> <hr>" + e.getCause().getMessage() : "") ); 
@@ -35,23 +33,20 @@ public class TechniciansController {
 
     }
 
-    @PostMapping("/Technicians")
-    public String saveOrUpdate(Model model, @RequestParam(required = false) String id,  @RequestParam String name, @RequestParam String salary, @RequestParam String gender, @RequestParam String commission, @RequestParam(required = false) String mode) {
+    @PostMapping("/Gender")
+    public String saveOrUpdate(Model model, @RequestParam(required = false) String id,  @RequestParam String name, @RequestParam(required = false) String mode) {
         Connection con = null;
         try {
             con = Database.getConnection();
-            Technicians instance = new Technicians();
+            Gender instance = new Gender();
             instance.setName(name) ; 
-            instance.setSalary(salary) ; 
-            instance.setGender(gender,con ) ;
-            instance.setCommission(commission) ; 
             if (mode != null && "u".equals(mode)) {
                 instance.setId(id);
                 instance.update(con);
             } else {
                 instance.insert(con);
             }
-            return "redirect:/Technicians";
+            return "redirect:/Gender";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("eMessage", e.getMessage() + (e.getCause() != null ? "<br> <hr>" + e.getCause().getMessage() : "") ); 
@@ -63,12 +58,12 @@ public class TechniciansController {
         }
     }
 
-    @GetMapping("/Technicians/delete/{id}")
+    @GetMapping("/Gender/delete/{id}")
     public String delete(Model model, @PathVariable int id) {
         Connection con = null;
         try {
-            Technicians.deleteById(id);
-            return "redirect:/Technicians";
+            Gender.deleteById(id);
+            return "redirect:/Gender";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("eMessage", e.getMessage() + (e.getCause() != null ? "<br> <hr>" + e.getCause().getMessage() : "") ); 
@@ -80,17 +75,15 @@ public class TechniciansController {
         }
     }
 
-    @GetMapping("/TraitTechnicians/{id}")
+    @GetMapping("/TraitGender/{id}")
     public String editForm(Model model, @PathVariable int id) {
         Connection con = null;
         try {
             con = Database.getConnection();
-            Technicians currentTechnicians = Technicians.getById(id ,con);
-            model.addAttribute("currentTechnicians", currentTechnicians);
-            model.addAttribute("all", Technicians.getAll());
-            Gender[] allGender = Gender.getAll();
-            model.addAttribute("allGender", allGender);
-            return "Technicians";
+            Gender currentGender = Gender.getById(id ,con);
+            model.addAttribute("currentGender", currentGender);
+            model.addAttribute("all", Gender.getAll());
+            return "Gender";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("eMessage", e.getMessage() + (e.getCause() != null ? "<br> <hr>" + e.getCause().getMessage() : "") ); 

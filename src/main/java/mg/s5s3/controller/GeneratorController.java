@@ -51,4 +51,30 @@ public class GeneratorController {
         }
     }
 
+    @GetMapping("/Technician_gender_commission_states")
+    public String getTechnician_gender_commission_states(Model model) {
+        try {
+            Connection con = mg.s5s3.db.Database.getConnection();
+            model.addAttribute("Technician_gender_commission_states", Technician_gender_commission_states.getAll(con));
+            return "Technician_gender_commission_states";
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("eMessage", e.getMessage() + (e.getCause() != null ? "<br> <hr>" + e.getCause().getMessage() : "") );
+            return "Error";
+        }
+    }
+
+    @PostMapping("/Technician_gender_commission_states")
+    public String getTechnician_gender_commission_states(Model model, @RequestParam String start_date, @RequestParam String end_date) {
+        try {
+            Connection con = mg.s5s3.db.Database.getConnection();
+            model.addAttribute("Technician_gender_commission_states", Technician_gender_commission_states.getAll(con,start_date,end_date));
+            return "Technician_gender_commission_states";
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("eMessage", e.getMessage() + (e.getCause() != null ? "<br> <hr>" + e.getCause().getMessage() : "") );
+            return "Error";
+        }
+    }
+
 }

@@ -13,6 +13,20 @@ CREATE TABLE components_type (
    name VARCHAR(50) NOT NULL
 );
 
+CREATE TABLE config (
+   id SERIAL PRIMARY KEY,
+   maximum NUMERIC(15,2) NOT NULL
+);
+
+insert into config values (1,200);
+
+CREATE TABLE gender(
+   id SERIAL,
+   name VARCHAR(50),
+   PRIMARY KEY(id)
+);
+
+
 CREATE TABLE services (
    id SERIAL PRIMARY KEY,
    name VARCHAR(50) NOT NULL,
@@ -22,7 +36,9 @@ CREATE TABLE services (
 CREATE TABLE technicians (
    id SERIAL PRIMARY KEY,
    name VARCHAR(50) NOT NULL,
-   salary NUMERIC(15,2) NOT NULL
+   salary NUMERIC(15,2) NOT NULL,
+   gender_id INTEGER NOT NULL,
+   FOREIGN KEY (gender_id) REFERENCES gender (id)
 );
 
 CREATE TABLE technicians_salary_history (

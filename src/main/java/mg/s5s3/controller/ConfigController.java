@@ -12,17 +12,15 @@ import mg.s5s3.db.Database;
 import mg.s5s3.model.*;
 
 @Controller
-public class TechniciansController {
+public class ConfigController {
 
-    @GetMapping("/Technicians")
+    @GetMapping("/Config")
     public String showAll(Model model) {
         Connection con = null;
         try {
             con = Database.getConnection();
-            model.addAttribute("all", Technicians.getAll());
-            Gender[] allGender = Gender.getAll();
-            model.addAttribute("allGender", allGender);
-            return "Technicians";
+            model.addAttribute("all", Config.getAll());
+            return "Config";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("eMessage", e.getMessage() + (e.getCause() != null ? "<br> <hr>" + e.getCause().getMessage() : "") ); 
@@ -35,23 +33,20 @@ public class TechniciansController {
 
     }
 
-    @PostMapping("/Technicians")
-    public String saveOrUpdate(Model model, @RequestParam(required = false) String id,  @RequestParam String name, @RequestParam String salary, @RequestParam String gender, @RequestParam String commission, @RequestParam(required = false) String mode) {
+    @PostMapping("/Config")
+    public String saveOrUpdate(Model model, @RequestParam(required = false) String id,  @RequestParam String maximum, @RequestParam(required = false) String mode) {
         Connection con = null;
         try {
             con = Database.getConnection();
-            Technicians instance = new Technicians();
-            instance.setName(name) ; 
-            instance.setSalary(salary) ; 
-            instance.setGender(gender,con ) ;
-            instance.setCommission(commission) ; 
+            Config instance = new Config();
+            instance.setMaximum(maximum) ; 
             if (mode != null && "u".equals(mode)) {
                 instance.setId(id);
                 instance.update(con);
             } else {
                 instance.insert(con);
             }
-            return "redirect:/Technicians";
+            return "redirect:/Config";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("eMessage", e.getMessage() + (e.getCause() != null ? "<br> <hr>" + e.getCause().getMessage() : "") ); 
@@ -63,12 +58,12 @@ public class TechniciansController {
         }
     }
 
-    @GetMapping("/Technicians/delete/{id}")
+    @GetMapping("/Config/delete/{id}")
     public String delete(Model model, @PathVariable int id) {
         Connection con = null;
         try {
-            Technicians.deleteById(id);
-            return "redirect:/Technicians";
+            Config.deleteById(id);
+            return "redirect:/Config";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("eMessage", e.getMessage() + (e.getCause() != null ? "<br> <hr>" + e.getCause().getMessage() : "") ); 
@@ -80,17 +75,15 @@ public class TechniciansController {
         }
     }
 
-    @GetMapping("/TraitTechnicians/{id}")
+    @GetMapping("/TraitConfig/{id}")
     public String editForm(Model model, @PathVariable int id) {
         Connection con = null;
         try {
             con = Database.getConnection();
-            Technicians currentTechnicians = Technicians.getById(id ,con);
-            model.addAttribute("currentTechnicians", currentTechnicians);
-            model.addAttribute("all", Technicians.getAll());
-            Gender[] allGender = Gender.getAll();
-            model.addAttribute("allGender", allGender);
-            return "Technicians";
+            Config currentConfig = Config.getById(id ,con);
+            model.addAttribute("currentConfig", currentConfig);
+            model.addAttribute("all", Config.getAll());
+            return "Config";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("eMessage", e.getMessage() + (e.getCause() != null ? "<br> <hr>" + e.getCause().getMessage() : "") ); 

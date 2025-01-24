@@ -43,7 +43,8 @@
                     <th>Maintenance date</th>
                     <th>Technician</th>
                     <th>Total maintenance earnings</th>
-                    <th>Technician commission (5%)</th>
+                    <th>Technician commission</th>
+                    <th>Technician commission percentage</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,6 +58,7 @@
                     <td><%= item.getTechnician().getName() %></td>
                     <td><%= item.getTotal_maintenance_earnings() %></td>
                     <td><%= item.getTechnician_commission() %></td>
+                    <td><%= item.getTechnician().getCommission() + " %" %></td>
                 </tr>
                 <% } %>
             </tbody>

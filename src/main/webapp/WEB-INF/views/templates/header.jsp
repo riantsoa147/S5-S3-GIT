@@ -79,9 +79,15 @@
                     <ul class="dropdown-menu">
                         <li><a href="Services">Services</a></li>
                         <li role="separator" class="divider"></li>
+                        <li><a href="Gender">Gender</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="Config">Config</a></li>
+                        <li role="separator" class="divider"></li>
                         <li><a href="Technicians">Technicians</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="Technician_commissions">Technician commissions</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/Technician_gender_commission_states">Technician gender commission states</a></li>
                     </ul>
                 </li>
 
