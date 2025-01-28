@@ -229,6 +229,37 @@ public class Failing_components {
 
         return items.toArray(new Failing_components[0]);
     }
+
+    public static Failing_components[] getAllByDiagnostic(Diagnostics diagnostics, int component_type_id, Connection con) throws Exception {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        List<Failing_components> items = new ArrayList<>();
+
+        try {
+            String query = "SELECT * FROM failing_components where diagnostic_id = ? and component_type_id = ? order by id asc ";
+            st = con.prepareStatement(query);
+            st.setInt(1, diagnostics.getId());
+            st.setInt(2, component_type_id);
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+                Failing_components item = new Failing_components();
+                item.setId(rs.getInt("id"));
+                item.setService(Services.getById(rs.getInt("service_id")  ,con ));
+                item.setComponent_type(Components_type.getById(rs.getInt("component_type_id")  ,con ));
+                item.setDiagnostic(Diagnostics.getById(rs.getInt("diagnostic_id")  ,con ));
+                items.add(item);
+            }
+        } catch (Exception e) {
+            throw e ;
+        } finally {
+            if (rs != null) rs.close();
+            if (st != null) st.close();
+        }
+
+        return items.toArray(new Failing_components[0]);
+    }
+
 }
 
 // Commun'IT app

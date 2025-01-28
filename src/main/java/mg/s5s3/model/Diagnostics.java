@@ -74,6 +74,12 @@ public class Diagnostics {
         setComponents(toSet);
     }
 
+    public void setComponents(int component_type_id, Connection con) throws Exception {
+        Failing_components [] toSet = Failing_components.getAllByDiagnostic(this,component_type_id, con);
+
+        setComponents(toSet);
+    }
+
     public static Diagnostics getById(int id, Connection con) throws Exception {
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -213,7 +219,7 @@ public class Diagnostics {
                 item.setId(rs.getInt("id"));
                 item.setDiagnostics_date(rs.getDate("diagnostics_date"));
                 item.setDeposit(Machines_clients_deposits.getById(rs.getInt("deposit_id")  ,con ));
-                item.setComponents(con);
+                item.setComponents(id,con);
                 items.add(item);
             }
         } catch (Exception e) {
